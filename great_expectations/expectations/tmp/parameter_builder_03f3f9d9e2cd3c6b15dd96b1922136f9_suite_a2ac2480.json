@@ -1,9 +1,0 @@
-{
-  "data_asset_type": null,
-  "expectation_suite_name": "tmp.parameter_builder_03f3f9d9e2cd3c6b15dd96b1922136f9_suite_a2ac2480",
-  "expectations": [],
-  "ge_cloud_id": null,
-  "meta": {
-    "great_expectations_version": "0.15.9"
-  }
-}
