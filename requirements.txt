@@ -34,6 +34,7 @@ htmlmin==0.1.12
 idna==3.3
 ImageHash==4.2.1
 importlib-metadata==4.11.4
+iniconfig==1.1.1
 ipykernel==6.13.1
 ipython==8.4.0
 ipython-genutils==0.2.0
@@ -74,6 +75,7 @@ pexpect==4.8.0
 phik==0.12.2
 pickleshare==0.7.5
 Pillow==9.1.1
+pluggy==1.0.0
 ply==3.11
 prometheus-client==0.14.1
 prompt-toolkit==3.0.29
@@ -81,12 +83,14 @@ protobuf==4.21.1
 psutil==5.9.1
 ptyprocess==0.7.0
 pure-eval==0.2.2
+py==1.11.0
 pybind11==2.9.2
 pycparser==2.21
 pydantic==1.9.1
 Pygments==2.12.0
 pyparsing==2.4.7
 pyrsistent==0.18.1
+pytest==7.1.2
 python-dateutil==2.8.2
 pythran==0.11.0
 pytz==2022.1
@@ -115,6 +119,7 @@ termcolor==1.1.0
 terminado==0.15.0
 threadpoolctl==3.1.0
 tinycss2==1.1.1
+tomli==2.0.1
 toolz==0.11.2
 tornado==6.1
 tqdm==4.64.0

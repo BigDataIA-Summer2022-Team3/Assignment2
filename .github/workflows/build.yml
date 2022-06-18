@@ -1,0 +1,26 @@
+name: "Github Actions: connect to AWS S3"
+
+on: 
+  push:
+    branch:
+      - main
+
+jobs:
+  build-project:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Checkout'
+        uses: actions/checkout@v2
+      - name: 'Set up Python'
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.9
+      - name: 'Install requirements'
+        # run: pip install -r requirements.txt
+      - name: Assign AWS credentials
+        env: 
+          ACKEY: ${{ secrets.ACKEY }}
+          SCKEY: ${{ secrets.SCKEY }}
+        run: |
+          python src/service/read_file_from_s3.py
+          python src/service/image_from_s3.py
