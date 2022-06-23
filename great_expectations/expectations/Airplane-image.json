@@ -1836,8 +1836,8 @@
       "expectation_type": "expect_column_proportion_of_unique_values_to_be_between",
       "kwargs": {
         "column": "class",
-        "max_value": 0.0006,
-        "min_value": 0.00057,
+        "max_value": 0.0005839416058394161,
+        "min_value": 0.0005839416058394161,
         "strict_max": false,
         "strict_min": false
       },
