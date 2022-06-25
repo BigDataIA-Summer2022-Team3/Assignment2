@@ -1,5 +1,6 @@
 from image_from_s3 import image_from_s3
 from read_csv_from_s3 import read_csv_from_s3
+from collections import defaultdict
 
 """Documentation: 
     1. Definition: user enter num of image X, The system will return the top X pictures with the most aircraft, X should small or equal than 10
@@ -16,11 +17,9 @@ from read_csv_from_s3 import read_csv_from_s3
 def return_images_with_maximum_airplanes(number_of_image):
     #check data address
     try:
-      df = read_csv_from_s3("image_planes_num.csv")
-      
+      df = read_csv_from_s3("image_planes_num.csv")      
     except:
         return "Sorry, the data missing."
-        
 
     #check input numbers
     try:
@@ -34,13 +33,18 @@ def return_images_with_maximum_airplanes(number_of_image):
     withSum = df.groupby(["index"])["count"].sum().reset_index(name="sum")
     df2 = withSum.sort_values(by="sum", ascending=False)
     df3 = df2.head(number_of_image)['index']
+    # print(df2)
 
+    result = defaultdict(dict)
+    num = 0
     # print pictures
     for i in df3:
       img = image_from_s3(i)
       img.show()
-      print("image_id: "+ i)
+      result[num]["img_id"] = i
+      result[num]["num_of_airplanes"] = df2[df2["index"]==i]['sum'].item()
+      num += 1;
 
-    return "Finish"
+    return result;
 
-# return_images_with_maximum_airplanes(6)
+# return_images_with_maximum_airplanes(3)

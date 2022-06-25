@@ -16,7 +16,7 @@ s3 = boto3.resource('s3',
 
 def image_from_s3(image_id):
 
-    bucket = s3.Bucket('damg-aircraft')
+    bucket = s3.Bucket('damg-aircraft-dev')
     image = bucket.Object("images/"+str(image_id))
     
     img_data = image.get().get('Body').read()

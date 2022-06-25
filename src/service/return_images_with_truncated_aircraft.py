@@ -1,5 +1,6 @@
 from image_from_s3 import image_from_s3
 from read_csv_from_s3 import read_csv_from_s3
+from collections import defaultdict
 
 """Documentation: 
     1. Definition: user enter num of image X, The system will return the top X pictures with the most truncated aircraft, X should small or equal than 10
@@ -13,7 +14,7 @@ from read_csv_from_s3 import read_csv_from_s3
               3) fund picture
                  function will return top X pictures
     """
-def return_all_images_with_truncated_aircraft(limit_of_images):
+def return_images_with_truncated_aircraft(limit_of_images):
     #check data address
     try:
       df = read_csv_from_s3("image_planes_num.csv")
@@ -34,13 +35,15 @@ def return_all_images_with_truncated_aircraft(limit_of_images):
     df4 = hasTruncated.sort_values(by="count", ascending=False)
     df5 = df4.head(limit_of_images)['index']
 
-   # print pictures
+    result = defaultdict(dict)
+    num = 0
     for i in df5:
         img = image_from_s3(i)
         img.show()
-        print("image_id: "+ i)
+        result[num]["img_id"] = i
+        num += 1;
 
-    return "Finish"
+    return result;
 
-# return_all_images_with_truncated_aircraft(2)
+# return_images_with_truncated_aircraft(2)
         

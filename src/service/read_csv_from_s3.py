@@ -17,7 +17,7 @@ s3 = boto3.client('s3',
 def read_csv_from_s3(key):
     """ key: file_name
     """
-    s3_bucket_name='damg-aircraft' 
+    s3_bucket_name='damg-aircraft-dev' 
 
     obj = s3.get_object(Bucket = s3_bucket_name,
                         Key = 'meta/'+str(key)
