@@ -1,12 +1,10 @@
 from PIL import ImageDraw
 from image_from_s3 import image_from_s3
 from read_csv_from_s3 import read_csv_from_s3
+from collections import defaultdict
 
 def display_smallest_aircraft(image_id, limit_of_number):
-    """image_id should be str, limit_of_number is maximum of output airplanes, is int
-    
-    Definition: On chosen image, display airplanes with red bounding boxes, and return their coordinates
-    """
+
     # Read csv file about all airplanes with coordinate and download related image from S3
     plane = read_csv_from_s3("airplane.csv")
     if(len(plane[plane["image_id"]==image_id]) == 0):
@@ -25,21 +23,26 @@ def display_smallest_aircraft(image_id, limit_of_number):
     test1.reset_index(drop=True, inplace=True)
 
     # Add Bounding Boxes on most biggest airplanes on image
-    coordinate = []
+    coordinate = defaultdict(dict)
     if(len(test1.index) >= limit_of_number):
         maximum = limit_of_number
     else: 
         maximum = len(test1.index)
     for i in range(maximum):
+        coordinate[i]["Xmin"] = test1.at[i, "Xmin"].item()
+        coordinate[i]["Ymin"] = test1.at[i, "Ymin"].item()
+        coordinate[i]["Xmax"] = test1.at[i, "Xmax"].item()
+        coordinate[i]["Ymax"] = test1.at[i, "Ymax"].item()
+        
         tuple = (test1.at[i, "Xmin"], test1.at[i,"Ymin"], test1.at[i, "Xmax"], test1.at[i, "Ymax"])
-        coordinate.append(tuple)
         rect = image.rectangle(tuple, outline="red", width=5)
-        # print("current i = ",i)
         i+=1
 
     img.show()
 
-    return coordinate; 
+    return dict(coordinate); 
 
 # image1 = "5c9e817a-dc4b-42ab-952c-3128e2de12e8.jpg"
-# print(display_smallest_aircraft(image1, 5))
+# print(display_smallest_aircraft(image1, 5)
+
+# to do __main__.py
