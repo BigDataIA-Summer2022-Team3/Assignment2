@@ -35,5 +35,5 @@ def return_images_with_truncated_aircraft(limit_of_images):
 
     return result;
 
-return_images_with_truncated_aircraft(2)
+# return_images_with_truncated_aircraft(2)
         
