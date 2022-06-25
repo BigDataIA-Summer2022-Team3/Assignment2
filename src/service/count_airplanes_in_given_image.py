@@ -1,17 +1,6 @@
-import re
-import pandas as pd
 from read_csv_from_s3 import read_csv_from_s3
 
-"""Documentation: 
-    1. Definition: user enter a picture id, system will return how much aircraft in the picture
-    2. Steps: 1) function will read data from particular address
-                 if system find get the data, it will continue running
-                 if system can't find the address, it will return "Sorry, the data missing."
-              2) user enter a picture id, 
-                 if user enter a correct id, it will continue running
-                 if user enter a wrong id, system will return "Sorry, we don't find the picture."
-              3) function will get the sum and return the number
-    """
+
 def count_airplanes_in_given_image(image_id):
    ## Input image_id and compute how many aircraft contains in the given image
    ## return integer

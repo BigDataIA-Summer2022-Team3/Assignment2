@@ -4,10 +4,6 @@ from read_csv_from_s3 import read_csv_from_s3
 from collections import defaultdict
 
 def display_biggest_aircraft(image_id, limit_of_number):
-    """image_id should be str, limit_of_number is maximum of output airplanes, is int
-    
-    Definition: On chosen image, display airplanes with red bounding boxes, and return their coordinates
-    """
     # Read csv file about all airplanes with coordinate and download related image from S3
     plane = read_csv_from_s3("airplane.csv")
     if(len(plane[plane["image_id"]==image_id]) == 0):

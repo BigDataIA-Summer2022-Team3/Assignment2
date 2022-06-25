@@ -1,19 +1,11 @@
 from PIL import ImageDraw
 from image_from_s3 import image_from_s3
 from read_csv_from_s3 import read_csv_from_s3
-
-from fastapi import FastAPI
 from collections import defaultdict
 
-def has_aircraft_in_given_x_y_coordinate(image_id: str, x_loc: int, y_loc: int):
-    """image_id should be str, x_loc & y_loc is int between (0, 2560)
 
-    Definition: Input image_id and x, y coordinate in the image
-    Find if there is airplane in the location, display the whole image with bounding box on the very airplane
-    if no airplane in given location, give all bounding box coordinates with airplanes, 
-    as list of tuple of (Xmin, Ymin, Xmax, Ymax)
-    """
-    # x_loc, y_loc = int(x_loc), int(y_loc)
+def has_aircraft_in_given_x_y_coordinate(image_id: str, x_loc: int, y_loc: int):
+
     if(x_loc < 0 or x_loc > 2560 or y_loc < 0 or y_loc > 2560):
         return "Input X and Y should within (0,2560)"
 
