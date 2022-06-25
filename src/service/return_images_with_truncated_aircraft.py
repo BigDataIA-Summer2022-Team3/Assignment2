@@ -41,9 +41,10 @@ def return_images_with_truncated_aircraft(limit_of_images):
         img = image_from_s3(i)
         img.show()
         result[num]["img_id"] = i
+        # result[num]['number_of_truncated_airplanes'] = df4[df4["index"]==i].count().item()
         num += 1;
 
     return result;
 
-# return_images_with_truncated_aircraft(2)
+return_images_with_truncated_aircraft(2)
         
