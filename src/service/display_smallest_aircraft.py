@@ -4,9 +4,12 @@ from read_csv_from_s3 import read_csv_from_s3
 from collections import defaultdict
 
 def display_smallest_aircraft(image_id, limit_of_number):
-
     # Read csv file about all airplanes with coordinate and download related image from S3
-    plane = read_csv_from_s3("airplane.csv")
+    try:
+      plane = read_csv_from_s3("airplane.csv")
+    except:
+        return "Failed to read csv from S3."
+
     if(len(plane[plane["image_id"]==image_id]) == 0):
         return "No image found related to the image_id. Try effective image_id"
     
@@ -14,7 +17,7 @@ def display_smallest_aircraft(image_id, limit_of_number):
         img = image_from_s3(image_id)
         image = ImageDraw.Draw(img)
     except: 
-        return "S3 error" 
+        return "Failed to download image from S3."
 
     # Get all airplanes info on the image and sort with (Width and Height) of bounding boxes 
     test = plane[plane["image_id"]==image_id]
