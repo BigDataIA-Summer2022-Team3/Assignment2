@@ -10,21 +10,24 @@ def has_aircraft_in_given_x_y_coordinate(image_id: str, x_loc: int, y_loc: int):
         return "Input X and Y should within (0,2560)"
 
     # Read csv file about all airplanes with coordinate and download related image from S3
-    plane = read_csv_from_s3("airplane.csv")
+    try:
+      plane = read_csv_from_s3("airplane.csv")
+    except:
+        return "Failed to read csv from S3."
 
     if(len(plane[plane["image_id"]==image_id]) == 0):
         return "No image found related to the image_id. Try effective image_id"
 
     try:
         img = image_from_s3(image_id)
-        image = ImageDraw.Draw(img)
-
+        image = ImageDraw.Draw(img)        
     except: 
-        return "S3 error"
+        return "Failed to download image from S3."
     
     # Filter with image_id and get all airplanes info on the image
     test = plane[plane["image_id"]==image_id]
     test.reset_index(drop=True, inplace=True)
+    print(test)
 
     # Iterate through all airplanes, check if (x_loc, y_loc) with bounding box of (Xmin, Ymin) and (Xmax, Ymax)
     coordinate = defaultdict(dict)
@@ -40,11 +43,10 @@ def has_aircraft_in_given_x_y_coordinate(image_id: str, x_loc: int, y_loc: int):
             rect = image.rectangle(tuple, outline="red", width=5)
             img.show()
             return {"image_id": image_id, "has_airplane": True, "coordinate": coordinate[i] }
-            # "Found"
+
         i+=1
 
-    sub_coordinate = dict((i, coordinate[i]) for i in range(3))
-    return {"image_id": image_id, "has_airplane": False, "other_coordinate": sub_coordinate}
+    return {"image_id": image_id, "has_airplane": False}
 
 # print(has_aircraft_in_given_x_y_coordinate("5c9e817a-dc4b-42ab-952c-3128e2de12e8.jpg",1600,500) )
 

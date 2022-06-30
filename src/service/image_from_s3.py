@@ -1,5 +1,5 @@
-import io
 import boto3
+import io
 from PIL import Image
 import config
 

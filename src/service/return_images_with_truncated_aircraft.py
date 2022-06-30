@@ -8,7 +8,7 @@ def return_images_with_truncated_aircraft(limit_of_images):
     try:
       df = read_csv_from_s3("image_planes_num.csv")
     except:
-        return "Sorry, the data missing."
+        return "Failed to read csv from S3."
         
 
     #check input numbers
@@ -30,7 +30,7 @@ def return_images_with_truncated_aircraft(limit_of_images):
         img = image_from_s3(i)
         img.show()
         result[num]["img_id"] = i
-        # result[num]['number_of_truncated_airplanes'] = df4[df4["index"]==i].count().item()
+        result[num]['number_of_truncated_airplanes'] = df4[df4["index"]==i]["count"].item()
         num += 1;
 
     return result;
