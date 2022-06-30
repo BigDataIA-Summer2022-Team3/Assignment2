@@ -27,7 +27,6 @@ def has_aircraft_in_given_x_y_coordinate(image_id: str, x_loc: int, y_loc: int):
     # Filter with image_id and get all airplanes info on the image
     test = plane[plane["image_id"]==image_id]
     test.reset_index(drop=True, inplace=True)
-    print(test)
 
     # Iterate through all airplanes, check if (x_loc, y_loc) with bounding box of (Xmin, Ymin) and (Xmax, Ymax)
     coordinate = defaultdict(dict)

@@ -119,7 +119,9 @@ async def ReturnImagesWithGivenNumberOfAircraft(contain_aircraft_number: int, li
 async def ReturnImagesWithMaximumAircraft(number_of_image: int=1):
    """Documentation: 
    1. Definition: user enter num of image X, The system will return the top X pictures with the most aircraft, X should small or equal than 10
-   2. Steps: 1) Read csv image info from S3
+   2. Steps: 
+            1) Read csv image info from S3
+            
             2) user enter a num of image, 
                if user enter a wrong type num, system will return "Please enter integer number"
                if num of image < 0, or num of image > 10, it will return "The number should between [1,10]"
