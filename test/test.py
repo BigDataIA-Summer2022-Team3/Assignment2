@@ -71,7 +71,7 @@ def test_return_images_with_truncated_aircraft():
     assert res3 == "Finish"
 
 
-from display_biggest_aircraft import display_biggest_aircraft as display_big
+from display_top_aircraft import display_biggest_aircraft as display_big
 
 def test_display_big():
     big = display_big("5c9e817a-dc4b-42ab-952c-3128e2de12e8.jpg",5)
@@ -134,5 +134,5 @@ def test_has_aircraft_in_given_coor():
     found_2 = has_aircraft("5c9e817a-dc4b-42ab-952c-3128e2de12e8.jpg",1950,280)
     assert found_2 == "Found"
 
-if __name__=='main':
+# if __name__=='main':
     
