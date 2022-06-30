@@ -2,7 +2,7 @@ import streamlit as st
 import webbrowser
 #from count_airplanes_in_given_image import count_airplanes_in_given_image as caig
 
-st.sidebar.markdown('# Group 3 APIs')
+st.markdown('# Login Page')
 
 #.text_input("X"), X can not use same key
 #button can not use same key
@@ -12,8 +12,8 @@ if st.sidebar.button("Reset"):
 fun1 =  st.sidebar.expander("Function 1")
 fun1val1 = fun1.text_input("fun1val1")
 fun1val2 = fun1.text_input("fun1val2")
-# if fun1.button("Select1"):
-#    st.write(caig(fun1val1))
+if fun1.button("Select1"):
+   st.write('Finish1')
 
 
 fun2 =  st.sidebar.expander("Function 2")
