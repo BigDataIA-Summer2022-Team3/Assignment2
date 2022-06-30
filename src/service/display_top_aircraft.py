@@ -3,7 +3,7 @@ from image_from_s3 import image_from_s3
 from read_csv_from_s3 import read_csv_from_s3
 from collections import defaultdict
 
-def display_biggest_aircraft(image_id, limit_of_number, isMaximum):
+def display_top_aircraft(image_id, limit_of_number, isMaximum):
     try:
       if limit_of_number < 0 or limit_of_number > 10: 
          return "limit_of_image should between [1,10]"     
