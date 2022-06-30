@@ -4,23 +4,19 @@ from collections import defaultdict
 
 
 def return_images_with_given_number_of_aircraft(contain_aircraft_number, limit_of_image=5):
-    # check data address
-    try:
-      df = read_csv_from_s3("image_planes_num.csv")
-    except:
-        return "Sorry, the data missing."
-        
     #check input numbers
     try:
       if contain_aircraft_number < 0 or limit_of_image < 0:
-         return "The number should be positive"
-         
+         return "Both Input numbers should be positive"     
       if limit_of_image > 10:
-         return "limit_of_image should between [1,10]"
-         
+         return "limit_of_image should between [1,10]"   
     except TypeError:
       return "Please enter two integer number."
-      
+
+    try:
+      df = read_csv_from_s3("image_planes_num.csv")
+    except:
+        return "Failed to read csv from S3."
     
     withSum = df.groupby(["index"])["count"].sum().reset_index(name="sum")
     df3 = withSum[withSum['sum'] == contain_aircraft_number]
@@ -28,7 +24,7 @@ def return_images_with_given_number_of_aircraft(contain_aircraft_number, limit_o
 
     # didn't found picture
     if df4.count() == 0:
-      return "Sorry, we don't find your needed"
+      return "No image in database has {contained} airplanes. Please try another possible number".format(contained=contain_aircraft_number);
       
     result = defaultdict(dict)
     num = 0

@@ -8,7 +8,7 @@ def return_images_with_maximum_airplanes(number_of_image):
     try:
       df = read_csv_from_s3("image_planes_num.csv")      
     except:
-        return "Sorry, the data missing."
+        return "Failed to read csv from S3."
 
     #check input numbers
     try:
