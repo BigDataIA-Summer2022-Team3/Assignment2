@@ -50,7 +50,7 @@ def HasAircraftInGivenLocation(x_loc: int, y_loc: int, image_id: str):
    result = has_aircraft_in_given_x_y_coordinate(image_id, x_loc, y_loc);
    if(result == "No image found related to the image_id. Try effective image_id"):
       logger.warn("Invalid Image ID Input")
-   elif(result == "Input X and Y should within (0,10)"):
+   elif(result == "Input X and Y should within (0,2560)"):
       logger.warn("Out of range number")
    return result;
 

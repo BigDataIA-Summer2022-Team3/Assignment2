@@ -1,7 +1,7 @@
 import pandas as pd
 
 """
-Definition: This server not working for user, it will creat a new table to save index_id, class, count. The table group bu index_id and class
+Definition: This server not working for user, it will create a new table to save index_id, class, count. The table group bu index_id and class
         index_id: the id for picture 
         class: Airplane/Truncated_airplane
         count: num of Airplane/Truncated_airplane
