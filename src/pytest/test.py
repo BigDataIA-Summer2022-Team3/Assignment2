@@ -147,3 +147,7 @@ def test_get_all_coordinates():
 
     invalid_id = get_coordinates(123)
     assert invalid_id == "No image found related to the image_id. Try effective image_id"
+
+
+# if __name__=='main':
+    

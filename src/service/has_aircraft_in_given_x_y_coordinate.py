@@ -1,19 +1,18 @@
 from PIL import ImageDraw
 from image_from_s3 import image_from_s3
-from read_csv_from_s3 import read_csv_from_s3
 from collections import defaultdict
-
+import pandas as pd
+from pathlib import Path
 
 def has_aircraft_in_given_x_y_coordinate(image_id: str, x_loc: int, y_loc: int):
 
     if(x_loc < 0 or x_loc > 2560 or y_loc < 0 or y_loc > 2560):
         return "Input X and Y should within (0,2560)"
 
-    # Read csv file about all airplanes with coordinate and download related image from S3
-    try:
-      plane = read_csv_from_s3("airplane.csv")
-    except:
-        return "Failed to read csv from S3."
+    # Read csv file about all airplanes with coordinate
+    path = Path(__file__).parent / "airplane.csv"
+    with path.open() as f:
+        plane = pd.read_csv(f)
 
     if(len(plane[plane["image_id"]==image_id]) == 0):
         return "No image found related to the image_id. Try effective image_id"
@@ -27,7 +26,6 @@ def has_aircraft_in_given_x_y_coordinate(image_id: str, x_loc: int, y_loc: int):
     # Filter with image_id and get all airplanes info on the image
     test = plane[plane["image_id"]==image_id]
     test.reset_index(drop=True, inplace=True)
-    print(test)
 
     # Iterate through all airplanes, check if (x_loc, y_loc) with bounding box of (Xmin, Ymin) and (Xmax, Ymax)
     coordinate = defaultdict(dict)

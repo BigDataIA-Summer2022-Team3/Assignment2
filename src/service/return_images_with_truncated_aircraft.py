@@ -1,24 +1,22 @@
 from image_from_s3 import image_from_s3
-from read_csv_from_s3 import read_csv_from_s3
 from collections import defaultdict
+import pandas as pd
+from pathlib import Path
 
 
 def return_images_with_truncated_aircraft(limit_of_images):
-    #check data address
-    try:
-      df = read_csv_from_s3("image_planes_num.csv")
-    except:
-        return "Failed to read csv from S3."
-        
-
     #check input numbers
     try:
       if limit_of_images < 0 or limit_of_images > 10:
          return "limit_of_image should between [1,10]"
-         
     except TypeError:
       return "Please enter integer number."
-      
+
+    #check data address
+    path2 = Path(__file__).parent / "image_planes_num.csv"
+    with path2.open() as f1:
+        df = pd.read_csv(f1)
+        
 
     hasTruncated = df[df['class'] == "Truncated_airplane"]
     df4 = hasTruncated.sort_values(by="count", ascending=False)
@@ -33,7 +31,7 @@ def return_images_with_truncated_aircraft(limit_of_images):
         result[num]['number_of_truncated_airplanes'] = df4[df4["index"]==i]["count"].item()
         num += 1;
 
-    return result;
+    return dict(result);
 
-# return_images_with_truncated_aircraft(2)
+# print(return_images_with_truncated_aircraft(2))
         
