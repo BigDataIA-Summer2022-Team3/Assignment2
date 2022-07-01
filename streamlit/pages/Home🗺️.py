@@ -9,9 +9,9 @@ usernames = ["zhijie", "yijun", "team4", "parth", "srikanth"]
 
 file_path = Path(__file__).parent.parent / "streamlitUserPW.pkl"
 with file_path.open("rb") as file:
-    hashed_passwards = pickle.load(file)
+    hashed_passwords = pickle.load(file)
 
-authenticator = stauth.Authenticate(names, usernames, hashed_passwards, "streamlitMain", "abcdef", cookie_expiry_days=0)
+authenticator = stauth.Authenticate(names, usernames, hashed_passwords, "streamlitMain", "abcdef", cookie_expiry_days=0)
 
 
 if st.session_state["authentication_status"]:
