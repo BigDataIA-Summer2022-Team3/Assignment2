@@ -1,22 +1,21 @@
 from image_from_s3 import image_from_s3
-from read_csv_from_s3 import read_csv_from_s3
 from collections import defaultdict
-
+import pandas as pd
+from pathlib import Path
 
 def return_images_with_given_number_of_aircraft(contain_aircraft_number, limit_of_image=5):
     #check input numbers
     try:
       if contain_aircraft_number < 0 or limit_of_image < 0:
-         return "Both Input numbers should be positive"     
+        return "Both Input numbers should be positive"     
       if limit_of_image > 10:
-         return "limit_of_image should between [1,10]"   
+        return "limit_of_image should between [1,10]"   
     except TypeError:
       return "Please enter two integer number."
 
-    try:
-      df = read_csv_from_s3("image_planes_num.csv")
-    except:
-        return "Failed to read csv from S3."
+    path2 = Path(__file__).parent / "image_planes_num.csv"
+    with path2.open() as f1:
+      df = pd.read_csv(f1)
     
     withSum = df.groupby(["index"])["count"].sum().reset_index(name="sum")
     df3 = withSum[withSum['sum'] == contain_aircraft_number]
@@ -38,6 +37,6 @@ def return_images_with_given_number_of_aircraft(contain_aircraft_number, limit_o
     if df4.count() < limit_of_image:
       print("Sorry, we don't have more pictures.")
    
-    return result;
+    return dict(result);
 
 # print(return_images_with_given_number_of_aircraft(30, 3))

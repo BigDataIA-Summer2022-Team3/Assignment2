@@ -1,7 +1,8 @@
 from PIL import ImageDraw
 from image_from_s3 import image_from_s3
-from read_csv_from_s3 import read_csv_from_s3
 from collections import defaultdict
+import pandas as pd
+from pathlib import Path
 
 def display_top_aircraft(image_id, limit_of_number, isMaximum):
     try:
@@ -10,11 +11,10 @@ def display_top_aircraft(image_id, limit_of_number, isMaximum):
     except TypeError:
       return "Please enter two integer number."
       
-    # Read csv file about all airplanes with coordinate and download related image from S3
-    try:
-      plane = read_csv_from_s3("airplane.csv")
-    except:
-        return "Failed to read csv from S3."
+    # Read csv file about all airplanes with coordinate
+    path = Path(__file__).parent / "airplane.csv"
+    with path.open() as f:
+        plane = pd.read_csv(f)
 
     if(len(plane[plane["image_id"]==image_id]) == 0):
         return "No image found related to the image_id. Try effective image_id"
@@ -55,4 +55,5 @@ def display_top_aircraft(image_id, limit_of_number, isMaximum):
 
     return dict(coordinate); 
 
-# res = display_biggest_aircraft("d9399a45-6745-4e59-8903-90640b2ddf9f.jpg",2, True)
+# res = display_top_aircraft("5c9e817a-dc4b-42ab-952c-3128e2de12e8.jpg",5, True)
+# print(res)
