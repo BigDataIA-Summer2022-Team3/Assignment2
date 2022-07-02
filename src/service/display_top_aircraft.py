@@ -1,5 +1,3 @@
-from PIL import ImageDraw
-from image_from_s3 import image_from_s3
 from collections import defaultdict
 import pandas as pd
 from pathlib import Path
@@ -40,9 +38,6 @@ def display_top_aircraft(image_id, limit_of_number, isMaximum):
         coordinate[i]["Ymin"] = test1.at[i, "Ymin"].item()
         coordinate[i]["Xmax"] = test1.at[i, "Xmax"].item()
         coordinate[i]["Ymax"] = test1.at[i, "Ymax"].item()
-
-        tuple = (test1.at[i, "Xmin"], test1.at[i,"Ymin"], test1.at[i, "Xmax"], test1.at[i, "Ymax"])
-        rect = image.rectangle(tuple, outline="red", width=5)
         i+=1
 
     return dict(coordinate); 
