@@ -24,10 +24,8 @@ def return_images_with_maximum_airplanes(number_of_image):
 
     result = defaultdict(dict)
     num = 0
-    # print pictures
+
     for i in df3:
-      img = image_from_s3(i)
-      img.show()
       result[num]["img_id"] = i
       result[num]["num_of_airplanes"] = df2[df2["index"]==i]['sum'].item()
       num += 1;

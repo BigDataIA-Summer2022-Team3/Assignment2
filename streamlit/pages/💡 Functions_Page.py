@@ -1,8 +1,11 @@
+from re import X
 import streamlit as st
 import pickle
 from pathlib import Path
 import streamlit_authenticator as stauth
 import requests
+import io
+from PIL import Image
 
 names = ["zhijie_li", "yijun_lin", "damg7245_team4", "parth_shah", "srikanth_krishnamurthy"]
 usernames = ["zhijie", "yijun", "team4", "parth", "srikanth"]
@@ -24,18 +27,31 @@ if st.session_state["authentication_status"]:
         fun1val3 = st.sidebar.text_input("image_id", max_chars= 50)
         if st.sidebar.button("Select"):
             res = requests.get(f"https://damg7245-zhijie.herokuapp.com/img/airplane/location?x_loc={fun1val1}&y_loc={fun1val2}&image_id={fun1val3}")
-            # todo:  record time of API calling
-            st.json( res.json() )
-            st.write('Finish1')
-    
+            if(res.text[0] == '"'):
+                st.write("No image found related to your image id. Try effective image id") 
+            else:
+                meta = res.json()
+                if(meta["has_airplane"] == False):
+                    st.write("No airplane in this place, try another location.")
+                else: 
+                    st.write("There is a airplane! 🎉")
+                    xmin, ymin, xmax, ymax = meta["coordinate"]["Xmin"], meta["coordinate"]["Ymin"], meta["coordinate"]["Xmax"], meta["coordinate"]["Ymax"];
+                    response = requests.get(f"http://127.0.0.1:5002/s3/img/location?image_id={fun1val3}&Xmin={xmin}&Ymin={ymin}&Xmax={xmax}&Ymax={ymax}")
+                    i = Image.open(io.BytesIO(response.content))
+                    st.image(i)
+                    st.subheader("Metadata:")
+                    st.json( res.json() )
+
     def api2():
         st.header("API 2: Get all airplanes' coordinate in picture")
         st.sidebar.subheader("API 2: Get airplanes coordinate in picture")
         fun2val1 = st.sidebar.text_input("image_id", max_chars= 50)
         if st.sidebar.button("Select"):
             res = requests.get(f"https://damg7245-zhijie.herokuapp.com/img/airplanes/coordinates?image_id={fun2val1}")
-            st.json( res.json() )            
-            st.write('Finish2')
+            if(res.text[0] == '"'):
+                st.write("No image found related to your image id. Try effective image id") 
+            else:
+                st.json( res.json() )            
         
     def api3():
         st.header("API 3: Display the top big or small aircraft in one picture")
@@ -48,17 +64,33 @@ if st.session_state["authentication_status"]:
             fun3val3 = "False"
         if st.sidebar.button("Select"):
             res = requests.get(f"https://damg7245-zhijie.herokuapp.com/img/display?image_id={fun3val1}&limit_of_number={fun3val2}&isMaximum={fun3val3}")
-            st.json( res.json() ) 
-            st.write('Finish3')
+            if(res.text[0] == '"'):
+                st.write("No image found related to your image id. Try effective image id") 
+            else:
+                response = requests.get(f"http://127.0.0.1:5002/s3/img/airplanes?image_id={fun3val1}&limit_of_number={fun3val2}&isMaximum={fun3val3}")
+                i = Image.open(io.BytesIO(response.content))
+                st.write(f"You Get {fun3val2} {fun3flag}est  airplanes! 🎉")
+                st.image(i)
+                st.subheader("Metadata:")
+                st.json( res.json() ) 
         
     def api4():
         st.header("API 4: Count airplanes in a picture")
         st.sidebar.subheader("Count airplanes in a picture")
         fun4val1 = st.sidebar.text_input("image id", max_chars= 50)
+
         if st.sidebar.button("Select"):
             res = requests.get(f"https://damg7245-zhijie.herokuapp.com/img/airplanes/count?image_id={fun4val1}")
-            st.json( res.json() ) 
-            st.write('Finish4')
+            if(res.text[0] == '"'):
+                st.write("No image found related to your image id. Try effective image id") 
+            else:
+                number = res.json()["number_of_airplanes"]
+                response = requests.get(f"http://127.0.0.1:5002/s3/img?image_id={fun4val1}")    
+                i = Image.open(io.BytesIO(response.content))
+                st.write(f"There are {number} airplanes in this image ")
+                st.image(i)
+                st.subheader("Metadata:")        
+                st.json( res.json() ) 
 
         
     def api5():
@@ -68,9 +100,19 @@ if st.session_state["authentication_status"]:
         fun5val2 = st.sidebar.number_input("limit of number [Pick a number between (1,10)]",1 ,10)
         if st.sidebar.button("Select"):
             res = requests.get(f'https://damg7245-zhijie.herokuapp.com/img/airplanes/givenNumber?contain_aircraft_number={fun5val1}&limit_of_image={fun5val2}')
-            # todo:  record time of API calling
-            st.json( res.json() )
-            st.write('Finish5')
+            if(res.text[0] == '"'):
+                st.write(f"No image in database has {fun5val1} airplanes. Please try another one")            
+            else: 
+                st.write(f"Congratulations! You find it the image with {fun5val1} airplanes 🎉")
+                meta = res.json()
+                for i in range(len(meta)):
+                    i_id = meta[str(i)]["img_id"]
+                    response = requests.get(f"http://127.0.0.1:5002/s3/img?image_id={i_id}")
+                    i = Image.open(io.BytesIO(response.content))
+                    st.image(i)
+
+                st.subheader("Metadata:")
+                st.json( res.json() )
         
     def api6():
         st.header("API 6: Get pictures that contains top number of airplanes")
@@ -78,8 +120,16 @@ if st.session_state["authentication_status"]:
         fun6val1 = st.sidebar.number_input("number of image: [Pick a number between (1,10)]",1 ,10)
         if st.sidebar.button("Select"):
             res = requests.get(f"https://damg7245-zhijie.herokuapp.com/img/airplanes/maximum?number_of_image={fun6val1}")
+            meta = res.json()
+            for i in range(len(meta)):
+                i_id = meta[str(i)]["img_id"]
+                response = requests.get(f"http://127.0.0.1:5002/s3/img?image_id={i_id}")
+                i = Image.open(io.BytesIO(response.content))
+                st.image(i)
+
+            st.subheader("Metadata:")
             st.json( res.json() )             
-            st.write('Finish6')
+
         
     def api7():
         st.header("API 7: Get pictures that contains top number of truncated airplanes")
@@ -87,8 +137,14 @@ if st.session_state["authentication_status"]:
         fun7val1 = st.sidebar.number_input("number of image [Pick a number between (1,10)]",1 ,10)
         if st.sidebar.button("Select"):
             res = requests.get(f"https://damg7245-zhijie.herokuapp.com/img/airplanes/truncated?number_of_image={fun7val1}")
+            meta = res.json()
+            for i in range(len(meta)):
+                i_id = meta[str(i)]["img_id"]
+                response = requests.get(f"http://127.0.0.1:5002/s3/img?image_id={i_id}")
+                i = Image.open(io.BytesIO(response.content))
+                st.image(i)
+            st.subheader("Metadata:")
             st.json( res.json() ) 
-            st.write('Finish7')
         
 
     funNum = {

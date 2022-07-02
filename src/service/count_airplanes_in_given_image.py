@@ -22,21 +22,21 @@ def count_airplanes_in_given_image(image_id):
     test = plane[plane["image_id"]==image_id]
     test.reset_index(drop=True, inplace=True)
     
-    try:
-        img = image_from_s3(image_id)
-        image = ImageDraw.Draw(img)
-    except: 
-        return "Failed to download image from S3."
+    # try:
+    #     img = image_from_s3(image_id)
+    #     image = ImageDraw.Draw(img)
+    # except: 
+    #     return "Failed to download image from S3."
     
-    for i in range(len(test.index)):
-        tuple = (test.at[i, "Xmin"].item(), test.at[i,"Ymin"].item(), test.at[i, "Xmax"].item(), test.at[i, "Ymax"].item())
-        rect = image.rectangle(tuple, outline="red", width=5)
+    # for i in range(len(test.index)):
+    #     tuple = (test.at[i, "Xmin"].item(), test.at[i,"Ymin"].item(), test.at[i, "Xmax"].item(), test.at[i, "Ymax"].item())
+    #     rect = image.rectangle(tuple, outline="red", width=5)
     
-    img.show()
+    # img.show()
     result = {}
     result['number_of_airplanes'] = df1.loc[: ,"count"].sum().item()
     return result;
 
 
-# print(count_airplanes_in_given_image("5c9e817a-dc4b-42ab-952c-3128e2de12e8.jpg"))
+print(count_airplanes_in_given_image("5c9e817a-dc4b-42ab-952c-3128e2de12e8.jpg"))
 # print(count_airplanes_in_given_image(""))

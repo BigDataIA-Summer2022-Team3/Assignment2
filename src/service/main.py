@@ -1,16 +1,15 @@
-
-from ast import If
 from random import random
-from fastapi import FastAPI, Request
-from requests import request
+from fastapi import FastAPI, Request, Response
 import logging
 import time
 import random
 import string
-
+from download_image_with_top_airplanes import download_image_with_top_airplanes
+from image_from_s3 import image_from_s3
 from has_aircraft_in_given_x_y_coordinate import has_aircraft_in_given_x_y_coordinate
 from display_top_aircraft import display_top_aircraft
 from count_airplanes_in_given_image import count_airplanes_in_given_image
+from image_with_bounding_airplane import image_with_bounding_airplane
 from return_images_with_given_number_of_aircraft import return_images_with_given_number_of_aircraft
 from return_images_with_maximum_airplanes import return_images_with_maximum_airplanes
 from return_images_with_truncated_aircraft import return_images_with_truncated_aircraft
@@ -33,7 +32,7 @@ async def log_requests(request: Request, call_next):
    formatted_process_time = '{0:.2f}'.format(process_time)
    logger.info(f"rid={idem}||completed_in={formatted_process_time}ms||status_code={response.status_code}")
    
-   return response
+   return response;
 
 
 @app.get("/img/airplane/location")
@@ -113,6 +112,7 @@ async def ReturnImagesWithGivenNumberOfAircraft(contain_aircraft_number: int=20,
    result = return_images_with_given_number_of_aircraft(contain_aircraft_number, limit_of_image)
    if(result == "The number should be positive" or result == "Sorry, we don't find your needed" or result == "limit_of_image should between [1,10]"):
       logger.warn("Out of range number")
+
    return result;
 
 
@@ -120,7 +120,7 @@ async def ReturnImagesWithGivenNumberOfAircraft(contain_aircraft_number: int=20,
 async def ReturnImagesWithMaximumAircraft(number_of_image: int=1):
    """Documentation: 
    1. Definition: user enter num of image X, The system will return the top X pictures with the most aircraft, X should small or equal than 10
-   2. Steps: 1) Read csv image info from S3
+   2. Steps:1) Read csv image info from S3
 
             2) user enter a num of image, 
                if user enter a wrong type num, system will return "Please enter integer number"
@@ -145,10 +145,30 @@ async def ReturnImageWithTruncatedAircraft(number_of_image: int=1):
                if user enter a wrong type num, system will return "Please enter integer number"
                if num of image < 0, or num of image > 10, it will return "The number should between [1,10]"
             
-            3) find picture and return top X pictures
-               
+            3) find picture and return top X pictures               
    """
    result = return_images_with_truncated_aircraft(number_of_image)
    if(result == "limit_of_image should between [1,10]"):
       logger.warn("Out of range number")
    return result;
+
+
+@app.get("/s3/img")
+async def Download_image_from_s3(image_id: str):
+   """Read one image data from S3"""
+   img_data = image_from_s3(image_id)
+   return Response(content=img_data, media_type="image/jpg");
+
+
+@app.get("/s3/img/airplanes")
+async def Download_image_with_top_airplanes(image_id: str, limit_of_number: int=1, isMaximum: bool = True):
+   """Read image data from S3 with bounding boxes in Top airplanes of biggest or smallest"""
+   img_data = download_image_with_top_airplanes(image_id, limit_of_number, isMaximum)
+   return Response(content=img_data, media_type="image/jpeg");
+
+
+@app.get("/s3/img/location")
+async def Download_image_with_bounding_airplane(image_id: str, Xmin: int, Ymin: int, Xmax: int, Ymax: int):
+   """Draw the bounding box on input location"""
+   img_data = image_with_bounding_airplane(image_id, Xmin, Ymin, Xmax, Ymax)
+   return Response(content=img_data, media_type="image/jpeg");

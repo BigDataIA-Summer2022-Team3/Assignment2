@@ -22,6 +22,6 @@ def image_from_s3(image_id):
     img_data = image.get().get('Body').read()
     print("Download image: " + str(image_id) )
 
-
-    return Image.open(io.BytesIO(img_data))
+# Image.open(io.BytesIO(img_data))
+    return img_data
 

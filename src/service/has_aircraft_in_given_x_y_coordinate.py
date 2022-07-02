@@ -16,12 +16,6 @@ def has_aircraft_in_given_x_y_coordinate(image_id: str, x_loc: int, y_loc: int):
 
     if(len(plane[plane["image_id"]==image_id]) == 0):
         return "No image found related to the image_id. Try effective image_id"
-
-    try:
-        img = image_from_s3(image_id)
-        image = ImageDraw.Draw(img)        
-    except: 
-        return "Failed to download image from S3."
     
     # Filter with image_id and get all airplanes info on the image
     test = plane[plane["image_id"]==image_id]
@@ -38,8 +32,6 @@ def has_aircraft_in_given_x_y_coordinate(image_id: str, x_loc: int, y_loc: int):
 
         if(x_loc>=tuple[0] and x_loc <= tuple[2] and 
             y_loc >= tuple[1] and y_loc <= tuple[3]):
-            rect = image.rectangle(tuple, outline="red", width=5)
-            img.show()
             return {"image_id": image_id, "has_airplane": True, "coordinate": coordinate[i] }
 
         i+=1
