@@ -36,7 +36,7 @@ if st.session_state["authentication_status"]:
                 else: 
                     st.write("There is a airplane! 🎉")
                     xmin, ymin, xmax, ymax = meta["coordinate"]["Xmin"], meta["coordinate"]["Ymin"], meta["coordinate"]["Xmax"], meta["coordinate"]["Ymax"];
-                    response = requests.get(f"http://127.0.0.1:5002/s3/img/location?image_id={fun1val3}&Xmin={xmin}&Ymin={ymin}&Xmax={xmax}&Ymax={ymax}")
+                    response = requests.get(f"http://damg7245-zhijie.herokuapp.com/s3/img/location?image_id={fun1val3}&Xmin={xmin}&Ymin={ymin}&Xmax={xmax}&Ymax={ymax}")
                     i = Image.open(io.BytesIO(response.content))
                     st.image(i)
                     st.subheader("Metadata:")
@@ -67,7 +67,7 @@ if st.session_state["authentication_status"]:
             if(res.text[0] == '"'):
                 st.write("No image found related to your image id. Try effective image id") 
             else:
-                response = requests.get(f"http://127.0.0.1:5002/s3/img/airplanes?image_id={fun3val1}&limit_of_number={fun3val2}&isMaximum={fun3val3}")
+                response = requests.get(f"http://damg7245-zhijie.herokuapp.com/s3/img/airplanes?image_id={fun3val1}&limit_of_number={fun3val2}&isMaximum={fun3val3}")
                 i = Image.open(io.BytesIO(response.content))
                 st.write(f"You Get {fun3val2} {fun3flag}est  airplanes! 🎉")
                 st.image(i)
@@ -85,7 +85,7 @@ if st.session_state["authentication_status"]:
                 st.write("No image found related to your image id. Try effective image id") 
             else:
                 number = res.json()["number_of_airplanes"]
-                response = requests.get(f"http://127.0.0.1:5002/s3/img?image_id={fun4val1}")    
+                response = requests.get(f"http://damg7245-zhijie.herokuapp.com/s3/img?image_id={fun4val1}")    
                 i = Image.open(io.BytesIO(response.content))
                 st.write(f"There are {number} airplanes in this image ")
                 st.image(i)
@@ -107,7 +107,7 @@ if st.session_state["authentication_status"]:
                 meta = res.json()
                 for i in range(len(meta)):
                     i_id = meta[str(i)]["img_id"]
-                    response = requests.get(f"http://127.0.0.1:5002/s3/img?image_id={i_id}")
+                    response = requests.get(f"http://damg7245-zhijie.herokuapp.com/s3/img?image_id={i_id}")
                     i = Image.open(io.BytesIO(response.content))
                     st.image(i)
 
@@ -123,7 +123,7 @@ if st.session_state["authentication_status"]:
             meta = res.json()
             for i in range(len(meta)):
                 i_id = meta[str(i)]["img_id"]
-                response = requests.get(f"http://127.0.0.1:5002/s3/img?image_id={i_id}")
+                response = requests.get(f"http://damg7245-zhijie.herokuapp.com/s3/img?image_id={i_id}")
                 i = Image.open(io.BytesIO(response.content))
                 st.image(i)
 
@@ -140,7 +140,7 @@ if st.session_state["authentication_status"]:
             meta = res.json()
             for i in range(len(meta)):
                 i_id = meta[str(i)]["img_id"]
-                response = requests.get(f"http://127.0.0.1:5002/s3/img?image_id={i_id}")
+                response = requests.get(f"http://damg7245-zhijie.herokuapp.com/s3/img?image_id={i_id}")
                 i = Image.open(io.BytesIO(response.content))
                 st.image(i)
             st.subheader("Metadata:")

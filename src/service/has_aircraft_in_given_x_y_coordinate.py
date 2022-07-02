@@ -1,5 +1,3 @@
-from PIL import ImageDraw
-from image_from_s3 import image_from_s3
 from collections import defaultdict
 import pandas as pd
 from pathlib import Path

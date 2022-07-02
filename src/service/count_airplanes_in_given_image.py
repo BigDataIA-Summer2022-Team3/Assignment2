@@ -1,5 +1,3 @@
-from image_from_s3 import image_from_s3
-from PIL import ImageDraw
 import pandas as pd
 from pathlib import Path
 
@@ -22,17 +20,6 @@ def count_airplanes_in_given_image(image_id):
     test = plane[plane["image_id"]==image_id]
     test.reset_index(drop=True, inplace=True)
     
-    # try:
-    #     img = image_from_s3(image_id)
-    #     image = ImageDraw.Draw(img)
-    # except: 
-    #     return "Failed to download image from S3."
-    
-    # for i in range(len(test.index)):
-    #     tuple = (test.at[i, "Xmin"].item(), test.at[i,"Ymin"].item(), test.at[i, "Xmax"].item(), test.at[i, "Ymax"].item())
-    #     rect = image.rectangle(tuple, outline="red", width=5)
-    
-    # img.show()
     result = {}
     result['number_of_airplanes'] = df1.loc[: ,"count"].sum().item()
     return result;

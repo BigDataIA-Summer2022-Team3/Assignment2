@@ -30,7 +30,7 @@ def download_image_with_top_airplanes(image_id, limit_of_number, isMaximum):
         test1 = test.sort_values("plane_size", ascending=True)
     test1.reset_index(drop=True, inplace=True)
 
-    # Add Bounding Boxes on most biggest airplanes on image
+    # Add Bounding Boxes on most biggest or smallest airplanes on image
     if(len(test1.index) >= limit_of_number):
         maximum = limit_of_number
     else: 

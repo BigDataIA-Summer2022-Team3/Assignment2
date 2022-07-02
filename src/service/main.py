@@ -36,7 +36,7 @@ async def log_requests(request: Request, call_next):
 
 
 @app.get("/img/airplane/location")
-def HasAircraftInGivenLocation(x_loc: int, y_loc: int, image_id: str):
+def Has_Aircraft_in_Given_Location(x_loc: int, y_loc: int, image_id: str):
    """image_id should be str, x_loc & y_loc is int between (0, 2560)
 
    Definition: Input image_id and x, y coordinate in the image
@@ -53,7 +53,7 @@ def HasAircraftInGivenLocation(x_loc: int, y_loc: int, image_id: str):
 
 
 @app.get("/img/airplanes/coordinates")
-async def GetCoordinates(image_id):
+async def Get_all_Coordinates(image_id):
    """Documentation:
    Return coordinates of all airplanes in an image, in form of Xmin, Ymin, Xmax, Ymax"""
    result = get_coordinates_of_all_airplanes(image_id)
@@ -61,10 +61,12 @@ async def GetCoordinates(image_id):
 
 
 @app.get("/img/display")
-async def DisplayTopAircraft(image_id: str, limit_of_number: int=1, isMaximum: bool=True):
-    """image_id should be str, limit_of_number is maximum of output airplanes
-    Set isMaximum to True: get most biggest airplanes on the image
-    Otherwise: get smallest airplanes
+async def Display_Top_Aircraft(image_id: str, limit_of_number: int=1, isMaximum: bool=True):
+    """image_id should be str, limit_of_number [n] is maximum of output airplanes
+
+   If [isMaximum]: True,  Get the coordinates of biggest [n] airplanes with bounding boxes
+   
+      [isMaximum]: False, Get the coordinates of smallest [n] airplanes with bounding boxes
     
     Definition: On chosen image, display biggest or smallest airplanes with red bounding boxes, and return their coordinates
     """
@@ -78,7 +80,7 @@ async def DisplayTopAircraft(image_id: str, limit_of_number: int=1, isMaximum: b
 
 
 @app.get("/img/airplanes/count")
-async def CountAirplanes(image_id: str):
+async def Count_Airplanes(image_id: str):
    """Documentation: 
    1. Definition: user enter a image_id, return how many aircraft image
    2. Steps: 1) Read csv data from S3 
@@ -93,7 +95,7 @@ async def CountAirplanes(image_id: str):
 
 
 @app.get("/img/airplanes/givenNumber")
-async def ReturnImagesWithGivenNumberOfAircraft(contain_aircraft_number: int=20, limit_of_image: int=1):
+async def Return_Images_with_Given_Number_of_Aircraft(contain_aircraft_number: int=20, limit_of_image: int=1):
    """Documentation: 
    1. Definition: user enter a number X and limit number of image Y, find those picture has X aircraft, and return Y pictures.
       X is recommended to be within 20 and 100
@@ -117,7 +119,7 @@ async def ReturnImagesWithGivenNumberOfAircraft(contain_aircraft_number: int=20,
 
 
 @app.get("/img/airplanes/maximum")
-async def ReturnImagesWithMaximumAircraft(number_of_image: int=1):
+async def Return_Images_with_Maximum_Aircraft(number_of_image: int=1):
    """Documentation: 
    1. Definition: user enter num of image X, The system will return the top X pictures with the most aircraft, X should small or equal than 10
    2. Steps:1) Read csv image info from S3
@@ -135,7 +137,7 @@ async def ReturnImagesWithMaximumAircraft(number_of_image: int=1):
 
 
 @app.get("/img/airplanes/truncated")
-async def ReturnImageWithTruncatedAircraft(number_of_image: int=1):
+async def Return_Image_with_Truncated_Aircraft(number_of_image: int=1):
    """Documentation: 
    1. Definition: user enter num of image X, return the top X pictures with the most truncated aircraft, X should be Integer
    2. Steps: 1) Read data from S3
@@ -162,7 +164,11 @@ async def Download_image_from_s3(image_id: str):
 
 @app.get("/s3/img/airplanes")
 async def Download_image_with_top_airplanes(image_id: str, limit_of_number: int=1, isMaximum: bool = True):
-   """Read image data from S3 with bounding boxes in Top airplanes of biggest or smallest"""
+   """Read image data from S3 with bounding boxes in Top airplanes of biggest or smallest
+
+   If [isMaximum]: True,  Get the biggest airplane with bounding boxes
+   
+      [isMaximum]: False, Get the smallest airplane with bounding boxes"""
    img_data = download_image_with_top_airplanes(image_id, limit_of_number, isMaximum)
    return Response(content=img_data, media_type="image/jpeg");
 
