@@ -1,4 +1,3 @@
-from image_from_s3 import image_from_s3
 from collections import defaultdict
 import pandas as pd
 from pathlib import Path
@@ -28,8 +27,6 @@ def return_images_with_given_number_of_aircraft(contain_aircraft_number, limit_o
     result = defaultdict(dict)
     num = 0
     for i in df4:
-      img = image_from_s3(i)
-      img.show()
       result[num]["img_id"] = i
       num += 1;
 

@@ -4,7 +4,7 @@ import pickle
 from pathlib import Path
 import streamlit_authenticator as stauth
 
-st.title(" Logging Analytics'")
+
 
 names = ["zhijie_li", "yijun_lin", "damg7245_team4", "parth_shah", "srikanth_krishnamurthy"]
 usernames = ["zhijie", "yijun", "team4", "parth", "srikanth"]
@@ -16,7 +16,7 @@ with file_path.open("rb") as file:
 authenticator = stauth.Authenticate(names, usernames, hashed_passwords, "streamlitMain", "abcdef", cookie_expiry_days=0)
 
 if st.session_state["authentication_status"]:
-
+    st.title(" Logging Analytics")
     st.subheader('Username')
     authenticator.logout('Logout', 'sidebar')
 
