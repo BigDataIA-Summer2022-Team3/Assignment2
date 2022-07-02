@@ -6,8 +6,8 @@ names = ["zhijie_li", "yijun_lin", "damg7245_team4", "parth_shah", "srikanth_kri
 usernames = ["zhijie", "yijun", "team4", "parth", "srikanth"]
 passwords = ["zhijiepw-", "yijunpw-", "team4pw-", "parthpw-", "srikanthpw-"]
 
-hashed_passwards = stauth.Hasher(passwords).generate()
+hashed_passwords = stauth.Hasher(passwords).generate()
 
 file_path = Path(__file__).parent / "streamlitUserPW.pkl"
 with file_path.open("wb") as file:
-    pickle.dump(hashed_passwards, file)
+    pickle.dump(hashed_passwords, file)

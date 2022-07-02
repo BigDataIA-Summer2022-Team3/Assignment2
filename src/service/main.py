@@ -44,9 +44,7 @@ def HasAircraftInGivenLocation(x_loc: int, y_loc: int, image_id: str):
    Find if there is airplane in the location, display the whole image with bounding box on the very airplane
    if the given location is contained in one airplane, the coordinate of this airplane will be returned as Xmin, Ymin, Xmax, Ymax
    """
-   if(image_id == None):
-      image_id = "5c9e817a-dc4b-42ab-952c-3128e2de12e8.jpg"
-      #todo
+   
    result = has_aircraft_in_given_x_y_coordinate(image_id, x_loc, y_loc);
    if(result == "No image found related to the image_id. Try effective image_id"):
       logger.warn("Invalid Image ID Input")
