@@ -15,6 +15,7 @@ from return_images_with_given_number_of_aircraft import return_images_with_given
 from return_images_with_maximum_airplanes import return_images_with_maximum_airplanes
 from return_images_with_truncated_aircraft import return_images_with_truncated_aircraft
 from get_coordinates_of_all_airplanes import get_coordinates_of_all_airplanes
+from analyze_log import analyze_log
 
 logging.config.fileConfig('logging.conf')
 logger = logging.getLogger(__name__)
@@ -157,3 +158,11 @@ async def ReturnImageWithTruncatedAircraft(number_of_image: int=1):
    if(result == "limit_of_image should between [1,10]"):
       logger.warn("Out_of_range_number")
    return result;
+
+
+# @app.get("/img/airplanes/log")
+# async def ReturnLogAnalyze():      
+#    result = analyze_log()
+#    if(result == None):
+#       return 'File is empty'
+#    return result;
