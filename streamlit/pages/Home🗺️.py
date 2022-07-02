@@ -16,8 +16,8 @@ authenticator = stauth.Authenticate(names, usernames, hashed_passwords, "streaml
 
 if st.session_state["authentication_status"]:
     authenticator.logout('Logout', 'sidebar')
-    st.markdown('# A Group 3 Home Page')
-    st.markdown('# Welcome!')
+    st.title('Team3 API User Guide')
+    st.subheader('Welcome! Lets go through our APIs')
     HtmlFile = open("../reports/api_describe_guide.html", 'r', encoding='utf-8')
     source_code = HtmlFile.read() 
     print(source_code)
