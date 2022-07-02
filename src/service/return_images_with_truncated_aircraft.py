@@ -2,6 +2,7 @@ from image_from_s3 import image_from_s3
 from collections import defaultdict
 import pandas as pd
 from pathlib import Path
+from  io import BytesIO
 
 
 def return_images_with_truncated_aircraft(limit_of_images):
