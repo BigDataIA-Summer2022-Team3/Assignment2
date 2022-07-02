@@ -23,14 +23,17 @@ app = FastAPI()
 @app.middleware("http")
 async def log_requests(request: Request, call_next):
    idem = ''.join(random.choices(string.ascii_uppercase + string.digits, k=6))
-   logger.info(f"rid={idem}||start request path={request.url.path}")
-   start_time = time.time()
+   
+   logger.info(f"{request.url.path}")
+   #logger.info(f"rid={idem}||start_request||{request.url.path}")
+   #start_time = time.time()
    
    response = await call_next(request)
    
-   process_time = (time.time() - start_time) * 1000
-   formatted_process_time = '{0:.2f}'.format(process_time)
-   logger.info(f"rid={idem}||completed_in={formatted_process_time}ms||status_code={response.status_code}")
+   #process_time = (time.time() - start_time) * 1000
+   #formatted_process_time = '{0:.2f}'.format(process_time)
+   #logger.info(f"rid={idem}||completed_in={formatted_process_time}ms||status_code={response.status_code}")
+   #logger.info(f"rid={idem}||completed_in:{formatted_process_time}||status_code={response.status_code}")
    
    return response;
 
@@ -46,9 +49,9 @@ def Has_Aircraft_in_Given_Location(x_loc: int, y_loc: int, image_id: str):
    
    result = has_aircraft_in_given_x_y_coordinate(image_id, x_loc, y_loc);
    if(result == "No image found related to the image_id. Try effective image_id"):
-      logger.warn("Invalid Image ID Input")
+      logger.warn("Invalid_Image_ID_Input")
    elif(result == "Input X and Y should within (0,2560)"):
-      logger.warn("Out of range number")
+      logger.warn("Out_of_range_number")
    return result;
 
 
@@ -57,6 +60,8 @@ async def Get_all_Coordinates(image_id):
    """Documentation:
    Return coordinates of all airplanes in an image, in form of Xmin, Ymin, Xmax, Ymax"""
    result = get_coordinates_of_all_airplanes(image_id)
+   if(result == "No image found related to the image_id. Try effective image_id"):
+      logger.warn("Invalid_Image_ID_Input")
    return result;
 
 
@@ -72,9 +77,9 @@ async def Display_Top_Aircraft(image_id: str, limit_of_number: int=1, isMaximum:
     """
     result = display_top_aircraft(image_id, limit_of_number, isMaximum)
     if(result == "No image found related to the image_id. Try effective image_id"):
-       logger.warn("Invalid Image ID Input")
+       logger.warn("Invalid_Image_ID_Input")
     elif(result == "Input X and Y should within (0,10)"):
-       logger.warn("Out of range number")
+       logger.warn("Out_of_range_number")
 
     return result;
 
@@ -89,8 +94,8 @@ async def Count_Airplanes(image_id: str):
             load image info from the csv file and get sum of aircraft
    """
    result = count_airplanes_in_given_image(image_id)
-   if(result == "Sorry, we don't find the picture. Please check you enter info."):
-      logger.warn("Invalid Image ID Input")
+   if(result == "No image found related to the image_id. Try effective image_id"):
+      logger.warn("Invalid_Image_ID_Input")
    return result;
 
 
@@ -114,7 +119,6 @@ async def Return_Images_with_Given_Number_of_Aircraft(contain_aircraft_number: i
    result = return_images_with_given_number_of_aircraft(contain_aircraft_number, limit_of_image)
    if(result == "The number should be positive" or result == "Sorry, we don't find your needed" or result == "limit_of_image should between [1,10]"):
       logger.warn("Out of range number")
-
    return result;
 
 
@@ -132,7 +136,7 @@ async def Return_Images_with_Maximum_Aircraft(number_of_image: int=1):
    """
    result = return_images_with_maximum_airplanes(number_of_image)
    if(result == "limit_of_image should between [1,10]"):
-      logger.warn("Out of range number")
+      logger.warn("Out_of_range_number")
    return result;
 
 
@@ -178,3 +182,5 @@ async def Download_image_with_bounding_airplane(image_id: str, Xmin: int, Ymin: 
    """Draw the bounding box on input location"""
    img_data = image_with_bounding_airplane(image_id, Xmin, Ymin, Xmax, Ymax)
    return Response(content=img_data, media_type="image/jpeg");
+
+

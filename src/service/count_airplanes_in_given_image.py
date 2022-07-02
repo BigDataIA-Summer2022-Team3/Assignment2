@@ -25,5 +25,5 @@ def count_airplanes_in_given_image(image_id):
     return result;
 
 
-print(count_airplanes_in_given_image("5c9e817a-dc4b-42ab-952c-3128e2de12e8.jpg"))
+# print(count_airplanes_in_given_image("5c9e817a-dc4b-42ab-952c-3128e2de12e8.jpg"))
 # print(count_airplanes_in_given_image(""))
