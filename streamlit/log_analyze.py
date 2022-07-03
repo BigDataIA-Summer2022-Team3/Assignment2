@@ -24,10 +24,10 @@ def Log_analyze():
     maximumNum = 0
     truncatedNum = 0
     
-    if os.stat("../src/service/log/logfile.log").st_size == 0:
+    if os.stat("../src/log/logfile.log").st_size == 0:
         st.markdown("log is empty")
     else:
-        with open("../src/service/log/logfile.log", encoding='utf-8') as lines:
+        with open("../src/log/logfile.log", encoding='utf-8') as lines:
             for line in lines:
                 if "loglevel=" in line:
                     data = line.split(" ")

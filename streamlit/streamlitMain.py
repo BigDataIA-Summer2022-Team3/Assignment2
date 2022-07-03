@@ -53,7 +53,7 @@ if st.session_state["authentication_status"]:
     authenticator.logout('Logout', 'sidebar')
     st.markdown(f'# Welcome *{st.session_state["name"]}*')
     load_token();
-    st.warning(st.session_state["token"]) #
+    # st.warning(st.session_state["token"]) #
 
 elif st.session_state["authentication_status"] == False:
     st.error('Username/password is incorrect')
