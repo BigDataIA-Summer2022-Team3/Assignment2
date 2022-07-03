@@ -1,19 +1,15 @@
+from distutils.util import execute
 import streamlit as st
 import webbrowser
 import streamlit.components.v1 as components
 import pickle
 from pathlib import Path
 import streamlit_authenticator as stauth
-import requests 
+import pymysql
+import requests
 
 st.markdown('# Login Page')
-
-
-#.text_input("X"), X can not use same key
-#button can not use same key
-if st.sidebar.button("Reset"):
-    st.empty()
-
+#need pymysql
 #need "pip install streamlit-authenticator==0.1.5"
 #usernames
 names = ["zhijie_li", "yijun_lin", "damg7245_team4", "parth_shah", "srikanth_krishnamurthy"]
@@ -28,7 +24,7 @@ authenticator = stauth.Authenticate(names, usernames, hashed_passwords, "streaml
 
 name, authentication_status, username = authenticator.login("Login" , "main")
 
-def load_token():
+def load_token(dbusername): #password is has
     url = "http://damg7245-zhijie.herokuapp.com/token"
     header = {
         "accept": "application/json",
@@ -36,7 +32,7 @@ def load_token():
     }
     data = {
                 "grant_type":"",  "scope": "", "client_id": "", "client_secret": "",
-                "username": "johndoe", "password": "secret"  # to do 
+                "username": dbusername, "password": dbusername + "pw"  # to do 
             }
     
     authentication = requests.post(url, data, header)      
@@ -50,11 +46,19 @@ if "token" not in st.session_state:
     st.session_state["token"] = ""
 
 if st.session_state["authentication_status"]:
+    
     authenticator.logout('Logout', 'sidebar')
     st.markdown(f'# Welcome *{st.session_state["name"]}*')
-    load_token();
-    # st.warning(st.session_state["token"]) #
-
+    con = pymysql.connect(host = '96.9.209.237', user = 'lemon', password = 'lemon@123', database = 'lemon', charset = "utf8")
+    c = con.cursor()
+    c.execute('select * from user_table where username = "%s"' % st.session_state.username)
+    datainfo = c.fetchall()
+    dbusername = datainfo[0][1]
+    st.session_state
+    load_token(dbusername) #dbpassword if has
+    
+    
+    
 elif st.session_state["authentication_status"] == False:
     st.error('Username/password is incorrect')
 elif st.session_state["authentication_status"] == None:
