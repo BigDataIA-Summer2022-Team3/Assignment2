@@ -1,4 +1,5 @@
 import streamlit as st
+import streamlit.components.v1 as components
 import pickle
 from pathlib import Path
 import streamlit_authenticator as stauth
@@ -14,7 +15,9 @@ authenticator = stauth.Authenticate(names, usernames, hashed_passwords, "streaml
 
 if st.session_state["authentication_status"]:
     st.title(" Unit tests for APIs")
-    st.subheader('Username')
+    HtmlFile = open("../reports/unit-test.html", 'r')
+    source_code = HtmlFile.read() 
+    components.html(source_code, height = 500)
     authenticator.logout('Logout', 'sidebar')
 
 else:

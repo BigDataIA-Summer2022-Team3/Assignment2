@@ -1,7 +1,7 @@
 import boto3
 import io
 from PIL import Image
-import config
+from service import config
 
 # ACKEY = os.environ["ACKEY"]
 # SCKEY = os.environ["SCKEY"]

@@ -1,5 +1,5 @@
 from PIL import ImageDraw, Image
-from image_from_s3 import image_from_s3
+from service.image_from_s3 import image_from_s3 
 import pandas as pd
 from pathlib import Path
 import io
