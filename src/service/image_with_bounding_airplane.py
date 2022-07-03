@@ -1,5 +1,5 @@
 from PIL import ImageDraw, Image
-from image_from_s3 import image_from_s3
+from service.image_from_s3 import image_from_s3
 import io
 
 def image_with_bounding_airplane(image_id, Xmin, Ymin, Xmax, Ymax):
