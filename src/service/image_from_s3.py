@@ -1,13 +1,11 @@
 import boto3
-import io
-from PIL import Image
-from service import config
+from service.config import funct
 
 # ACKEY = os.environ["ACKEY"]
 # SCKEY = os.environ["SCKEY"]
 
-ACKEY = config.ACKEY
-SCKEY = config.SCKEY
+
+ACKEY,SCKEY = funct()
 
 s3 = boto3.resource('s3',
                     region_name = 'us-east-1',
@@ -24,4 +22,3 @@ def image_from_s3(image_id):
 
 # Image.open(io.BytesIO(img_data))
     return img_data
-

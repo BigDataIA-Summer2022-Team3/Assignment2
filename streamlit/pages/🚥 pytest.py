@@ -17,7 +17,7 @@ if st.session_state["authentication_status"]:
     st.title(" Unit tests for APIs")
     HtmlFile = open("../reports/unit-test.html", 'r')
     source_code = HtmlFile.read() 
-    components.html(source_code, height = 500)
+    components.html(source_code, height = 800)
     authenticator.logout('Logout', 'sidebar')
 
 else:
