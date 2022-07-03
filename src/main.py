@@ -1,6 +1,5 @@
 from random import random
 import logging,logging.config
-import time
 import random
 import string
 from datetime import datetime, timedelta

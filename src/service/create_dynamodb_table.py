@@ -1,11 +1,11 @@
 # # Adding the parent directory to the path.
 import sys, os
-sys.path.append(os.path.abspath('../service'))
+# sys.path.append(os.path.abspath('../service'))
 print(os.getcwd())
 
 import boto3
 # from config 
-from config import funct
+from service.config import funct
 
 ACKEY, SCKEY = funct()
 #  = config.SCKEY
