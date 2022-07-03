@@ -12,10 +12,10 @@
         </p>
     </body>
 
-    <p>Example:</p>
+    <p>Example 1:</p>
     <table border="1">
         <tr>
-            <th>Input</th>
+            <th>Correct_Input</th>
             <th>Output</th>
         </tr>
         <tr>
@@ -36,9 +36,49 @@
         </tr>
     </table>
 
+    <p>Example 2:</p>
+    <table border="1">
+        <tr>
+            <th>Incorrect_Input</th>
+            <th>Output</th>
+        </tr>
+        <tr>
+            <td>x_loc = 30000000</td>
+            <td>"Input X and Y should within (0,2560)"</td>
+        </tr>
+        <tr>
+            <td>y_loc = 500</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>image_id = 5c9e817a-dc4b-42ab-952c-3128e2de12e8.jpg</td>
+            <td></td>
+        </tr>
+    </table>
+
+    <p>Example 3:</p>
+    <table border="1">
+        <tr>
+            <th>Incorrect_Input</th>
+            <th>Output</th>
+        </tr>
+        <tr>
+            <td>x_loc = 1600</td>
+            <td>"No image found related to the image_id. Try effective image_id"</td>
+        </tr>
+        <tr>
+            <td>y_loc = 500</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>image_id = wrong_id</td>
+            <td></td>
+        </tr>
+    </table>
+
 
     <h2>
-        API 2: Get all airplanes' coordinate in picture
+        API 2: Get all airplanes coordinate in picture
     </h2>
     <body>
         User need to enter an image_id of picture<br/>
@@ -48,7 +88,7 @@
         </p>
     </body>
     
-    <p>Example:</p>
+    <p>Example 1:</p>
     <table border="1">
         <tr>
             <th>Input</th>
@@ -84,6 +124,18 @@
         </tr>
     </table>
 
+    <p>Example 2:</p>
+    <table border="1">
+        <tr>
+            <th>Incorrect_Input</th>
+            <th>Output</th>
+        </tr>
+        <tr>
+            <td>image_id = wrong_id</td>
+            <td>"No image found related to the image_id. Try effective image_id"</td>
+        </tr>
+    </table>
+
 
     <h2>
         API 3: Display the top big or small aircraft in one picture
@@ -96,7 +148,7 @@
         </p>
     </body>
 
-    <p>Example:</p>
+    <p>Example 1:</p>
     <table border="1">
         <tr>
             <th>Input</th>
@@ -128,6 +180,18 @@
         </tr>
     </table>
 
+    <p>Example 2:</p>
+    <table border="1">
+        <tr>
+            <th>Incorrect_Input</th>
+            <th>Output</th>
+        </tr>
+        <tr>
+            <td>image_id = wrong_id</td>
+            <td>"No image found related to the image_id. Try effective image_id"</td>
+        </tr>
+    </table>
+
 
     <h2>
         API 4: Count airplanes in picture
@@ -140,7 +204,7 @@
         </p>
     </body>
 
-    <p>Example:</p>
+    <p>Example 1:</p>
     <table border="1">
         <tr>
             <th>Input</th>
@@ -149,6 +213,18 @@
         <tr>
             <td>image_id = 5c9e817a-dc4b-42ab-952c-3128e2de12e8.jpg</td>
             <td>number of airplanes = 30</td>
+        </tr>
+    </table>
+
+    <p>Example 2:</p>
+    <table border="1">
+        <tr>
+            <th>Incorrect_Input</th>
+            <th>Output</th>
+        </tr>
+        <tr>
+            <td>image_id = wrong_id</td>
+            <td>"No image found related to the image_id. Try effective image_id"</td>
         </tr>
     </table>
 

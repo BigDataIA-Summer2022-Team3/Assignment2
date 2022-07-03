@@ -3,6 +3,7 @@ import streamlit.components.v1 as components
 import pickle
 from pathlib import Path
 import streamlit_authenticator as stauth
+import log_analyze as la
 
 
 
@@ -16,9 +17,13 @@ with file_path.open("rb") as file:
 authenticator = stauth.Authenticate(names, usernames, hashed_passwords, "streamlitMain", "abcdef", cookie_expiry_days=0)
 
 if st.session_state["authentication_status"]:
+
     st.title(" Logging Analytics")
-    st.subheader('Username')
+
     authenticator.logout('Logout', 'sidebar')
+    
+    la.Log_analyze()
+    
 
 else:
     st.markdown('# Please go to streamlitMain login')    

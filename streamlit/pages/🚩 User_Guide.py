@@ -21,6 +21,6 @@ if st.session_state["authentication_status"]:
     HtmlFile = open("../reports/api_describe_guide.html", 'r', encoding='utf-8')
     source_code = HtmlFile.read() 
     print(source_code)
-    components.html(source_code, height = 2500, width = 800)
+    components.html(source_code, height = 3100, width = 800)
 else:
     st.markdown('# Please go to streamlitMain login')
