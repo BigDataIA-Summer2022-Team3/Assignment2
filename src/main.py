@@ -34,6 +34,13 @@ fake_users_db = {
         "username": "johndoe",
         "hashed_password": "$2b$12$EixZaYVK1fsbw1ZfbX3OXePaWxn96p36WQoeG6Lruj3vjPGga31lW",
         "disabled": False,
+    },
+    "yijun": {
+        "username": "yijun",
+        "full_name": "yijun_lin",
+        "email": "johndoe@example.com",
+        "hashed_password": "$2b$12$d3/0FX35PD6KE7xXNAYtl.XEPZQf3dXZp6cINNXctetqbauvQ44BS",
+        "disabled": False,
     }
 }
 
