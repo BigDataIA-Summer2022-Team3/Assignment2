@@ -32,16 +32,22 @@ ACCESS_TOKEN_EXPIRE_MINUTES = 30
 fake_users_db = {
     "johndoe": {
         "username": "johndoe",
+        "full_name": "John Doe",
+        "email": "johndoe@example.com",
         "hashed_password": "$2b$12$EixZaYVK1fsbw1ZfbX3OXePaWxn96p36WQoeG6Lruj3vjPGga31lW",
         "disabled": False,
     },
-    "yijun": {
-        "username": "yijun",
-        "full_name": "yijun_lin",
-        "email": "johndoe@example.com",
-        "hashed_password": "$2b$12$d3/0FX35PD6KE7xXNAYtl.XEPZQf3dXZp6cINNXctetqbauvQ44BS",
-        "disabled": False,
-    }
+    # "yijun": {
+    #     "username": "yijun",
+    #     "hashed_password": "$2b$12$d3/0FX35PD6KE7xXNAYtl.XEPZQf3dXZp6cINNXctetqbauvQ44BS",
+    # },
+    # "zhijie": {
+    #     "username": "zhijie",
+    #     "full_name": "John Doe",
+    #     "email": "johndoe@example.com",
+    #     "hashed_password": "$2b$12$wyGrJ9ddK5rEDr/8TOD9TOxB./KimH1HhJdsmKJZ50qGClc0xnhze",
+    #     "disabled": False,
+    # }
 }
 
 
