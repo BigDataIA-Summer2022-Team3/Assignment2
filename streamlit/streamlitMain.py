@@ -1,12 +1,11 @@
-from distutils.util import execute
 import streamlit as st
-import webbrowser
-import streamlit.components.v1 as components
 import pickle
 from pathlib import Path
 import streamlit_authenticator as stauth
 import pymysql
 import requests
+
+from dbconfig import funct
 
 st.markdown('# Login Page')
 #need pymysql
@@ -24,17 +23,18 @@ authenticator = stauth.Authenticate(usernames, usernames, hashed_passwords, "str
 
 name, authentication_status, username = authenticator.login("Login" , "main")
 
+
 def load_token(dbusername): #password if has
     url = "http://damg7245-zhijie.herokuapp.com/token"
     #url = "http://127.0.0.1:5001/token"
+
     header = {
         "accept": "application/json",
         "Content-Type": "application/x-www-form-urlencoded"
     }
     data = {
-                "grant_type":"",  "scope": "", "client_id": "", "client_secret": "",
-                "username": dbusername, "password": dbusername + "pw"  # to do 
-                
+            "grant_type":"",  "scope": "", "client_id": "", "client_secret": "",
+            "username": dbusername, "password": dbusername + "pw"  # to do 
             }
     
     authentication = requests.post(url, data, header)
@@ -51,14 +51,14 @@ if st.session_state["authentication_status"]:
     
     authenticator.logout('Logout', 'sidebar')
     st.markdown(f'# Welcome *{st.session_state["name"]}*')
-    
-    con = pymysql.connect(host = '96.9.209.237', user = 'lemon', password = 'lemon@123', database = 'lemon', charset = "utf8")
+
+    Host, User, Password = funct()
+    con = pymysql.connect(host = Host, user = User, password = Password, database = 'lemon', charset = "utf8")
     c = con.cursor()
     c.execute('select * from user_table where username = "%s"' % st.session_state.username)
     datainfo = c.fetchall()
     dbusername = datainfo[0][1]
-    
-    st.session_state
+    # st.session_state
     load_token(dbusername) #dbpassword if has
     
     
