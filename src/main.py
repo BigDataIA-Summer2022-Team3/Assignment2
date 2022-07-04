@@ -30,24 +30,48 @@ ACCESS_TOKEN_EXPIRE_MINUTES = 30
 
 
 fake_users_db = {
-    "johndoe": {
-        "username": "johndoe",
-        "full_name": "John Doe",
-        "email": "johndoe@example.com",
-        "hashed_password": "$2b$12$EixZaYVK1fsbw1ZfbX3OXePaWxn96p36WQoeG6Lruj3vjPGga31lW",
-        "disabled": False,
-    },
-    # "yijun": {
-    #     "username": "yijun",
-    #     "hashed_password": "$2b$12$d3/0FX35PD6KE7xXNAYtl.XEPZQf3dXZp6cINNXctetqbauvQ44BS",
-    # },
-    # "zhijie": {
-    #     "username": "zhijie",
+    # "johndoe": {
+    #     "username": "johndoe",
     #     "full_name": "John Doe",
     #     "email": "johndoe@example.com",
-    #     "hashed_password": "$2b$12$wyGrJ9ddK5rEDr/8TOD9TOxB./KimH1HhJdsmKJZ50qGClc0xnhze",
+    #     "hashed_password": "$2b$12$EixZaYVK1fsbw1ZfbX3OXePaWxn96p36WQoeG6Lruj3vjPGga31lW",
     #     "disabled": False,
-    # }
+    # },
+    "yijun": {
+        "username": "yijun",
+        "full_name": "yijun",
+        "email": "yijun@example.com",
+        "hashed_password": "$2b$12$d3/0FX35PD6KE7xXNAYtl.XEPZQf3dXZp6cINNXctetqbauvQ44BS",
+        "disabled": False,
+    },
+    "zhijie": {
+        "username": "zhijie",
+        "full_name": "zhijie",
+        "email": "zhijie@example.com",
+        "hashed_password": "$2b$12$wyGrJ9ddK5rEDr/8TOD9TOxB./KimH1HhJdsmKJZ50qGClc0xnhze",
+        "disabled": False,
+    },
+    "team4": {
+        "username": "team4",
+        "full_name": "team4",
+        "email": "team4@example.com",
+        "hashed_password": "$2b$12$coUIbxzhTrGdVxy4SsZ32.c8znlZ58I4wiC/Qw0xHuYq6D4FXZjxi",
+        "disabled": False,
+    },
+    "parth": {
+        "username": "parth",
+        "full_name": "parth",
+        "email": "parth@example.com",
+        "hashed_password": "$2b$12$D8MCfcRSPwoVFGo9QTdE0ODBX25cMyOHh/HFEMJI4adNzUVJNOwvS",
+        "disabled": False,
+    },
+    "srikanth": {
+        "username": "srikanth",
+        "full_name": "srikanth",
+        "email": "srikanth@example.com",
+        "hashed_password": "$2b$12$Ky4RCizJYaL1tCx1X0MeVuAoIWXPO.YRLDKEexQbhYOPqnYLR6KX6",
+        "disabled": False,
+    }
 }
 
 
