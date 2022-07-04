@@ -1,6 +1,4 @@
 import streamlit as st
-import webbrowser
-import streamlit.components.v1 as components
 import pickle
 from pathlib import Path
 import streamlit_authenticator as stauth
@@ -35,9 +33,8 @@ def load_token(dbusername): #password if has
         "Content-Type": "application/x-www-form-urlencoded"
     }
     data = {
-                "grant_type":"",  "scope": "", "client_id": "", "client_secret": "",
-                "username": dbusername, "password": dbusername + "pw"  # to do 
-                
+            "grant_type":"",  "scope": "", "client_id": "", "client_secret": "",
+            "username": dbusername, "password": dbusername + "pw"  # to do 
             }
     
     authentication = requests.post(url, data, header)
