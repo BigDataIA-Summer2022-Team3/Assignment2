@@ -93,3 +93,5 @@ target/
 sample/
 
 config.py
+
+dbconfig.py
