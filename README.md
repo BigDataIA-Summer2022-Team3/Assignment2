@@ -1,6 +1,11 @@
 Damg7245-assignment2
 ==============================
 
+FastApi deployed on Heroku: https://damg7245-zhijie.herokuapp.com/
+                        (JWT token needed)
+                    
+Streamlit Cloud:  https://bigdataia-summer2022-team3-streamlit-deplo-streamlitmain-0uwvc9.streamlitapp.com/
+
 “WE ATTEST THAT WE HAVEN’T USED ANY OTHER STUDENTS’ WORK IN OUR ASSIGNMENT AND ABIDE BY THE POLICIES LISTED IN THE STUDENT HANDBOOK
 
 Contribution: Yijun Lin: 50%  Zhijie Li: 50% 
