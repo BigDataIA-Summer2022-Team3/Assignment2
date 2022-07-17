@@ -1,3 +1,7 @@
+import sys
+import os
+sys.path.append(os.path.abspath('../service'))
+
 from count_airplanes_in_given_image import count_airplanes_in_given_image as counter
 from return_images_with_given_number_of_aircraft import return_images_with_given_number_of_aircraft as numOfAircraft
 from return_images_with_maximum_airplanes import return_images_with_maximum_airplanes as maxNumAirplanes
